@@ -1,0 +1,369 @@
+<!-- 
+    *Fix the location of the result for the second half
+    *Make feature where when you calculate the second half, you get an overall result 
+    *Make feature where if they calculate the second half first, you get an alert to do it right 
+ -->
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GradeTeacherTracker</title>
+</head>
+<body>
+    <style>
+        *{
+            margin: 0;
+            padding: 0;
+        }
+
+        .container{
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+        }
+        .containerRight{
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+        }
+        .containerTotal{
+            width: 100%;
+            height: 100vh;
+            background: linear-gradient(45deg, #FC466B, #3F5EFB);
+        }
+        .flex-box{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .flex-boxRight{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .flex-boxTotal{
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+        }
+        .container .card {
+            height: 350px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            left: 200px;
+        }
+        .containerRight .cardRight {
+            height: 350px;
+            width: 300px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            left: 800px;
+        }
+        .containerTotal .cardTotal {
+            height: 350px;
+            width: 250px;
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 20px;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            position: absolute;
+            left: 520px;
+            top: 250px;
+        }
+        #description{
+            text-align: center;
+            position: relative;
+            top: 20%;
+            font-weight: 500;
+            font-size: 30px;
+            color: #fff;
+            font-family: sans-serif;
+            text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+            position: absolute;
+            left: 240px;
+            top: 100px;
+        }
+        #descriptionRight{
+            text-align: center;
+            position: relative;
+            top: 20%;
+            font-weight: 500;
+            font-size: 30px;
+            color: #fff;
+            font-family: sans-serif;
+            text-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+            position: absolute;
+            left: 810px;
+            top: 100px;
+        }
+        .input{
+            margin: 10px 40px;
+        }
+        .inputRight{
+            margin: 10px 40px;
+        }
+        .input input {
+            width: 100%;
+            margin: 10px;
+            height: 20px;
+            outline: none;
+            border: none;
+            font-weight: bold;
+            text-indent: 30px;
+            padding: 3px 5px;
+            color: #000;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        }
+        .inputRight input {
+            width: 100%;
+            margin: 10px;
+            height: 20px;
+            outline: none;
+            border: none;
+            font-weight: bold;
+            text-indent: 30px;
+            padding: 3px 5px;
+            color: #000;
+            box-shadow: rgba(0, 0, 0, 0.15) 2.4px 2.4px 3.2px;
+        }
+        /* containerTotal">
+        <div class="flex-boxTotal">
+            <div class="cardTotal">
+                <p id="total */
+        ::placeholder{
+            font-weight: bold;
+            text-indent: 30px;
+            padding: 3px 5px;
+            color: #000;
+        }
+        button{
+            background-color: crimson;
+            outline: none;
+            border: none;
+            font-weight: bold;
+            padding: 3px 10px;
+            color: #fff;
+            margin: 10px 90px;
+            cursor: pointer;
+        }
+        button:hover{
+            background-color: rgb(192, 14, 50);
+        }
+        #demo, #demoAverage{
+            color: white;
+            background-color: #000;
+            text-align: center;
+            font-size: 20px;
+        }
+        #demoRight, #demoAverageRight{
+            color: black;
+            background-color: white;
+            text-align: center;
+            font-size: 20px;
+        }
+        #total{
+            color: black;
+            position: absolute;
+            left: 25%;
+            top: 35%;
+            font-size: 50px;
+            background-size: contain;
+            margin: 0;
+            padding: 0;
+        }
+        #totalAverage{
+            width: 100%;
+            font-size: 20px;
+            text-align: center;
+        }
+    </style>
+    <div class="container">
+    <h2 id="description">First Half Grades</h2>
+    <div class="flex-box">
+        <div class="card">
+            <div class="input">
+                <input type="number" id="a" placeholder="Classwork Grade">
+                <input type="number" id="b" placeholder="2nd Classwork Grade">
+                <input type="number" id="c" placeholder="Participation Grade">
+                <input type="number" id="d" placeholder="Formative Assessment">
+                <input type="number" id="e" placeholder="Summative Assessment">
+
+                <button onclick="calculate(); average()">Calculate</button>
+                <p id="demo"></p>
+                <p id="demoAverage"></p>
+    </div>
+    </div>
+    <h2 id="descriptionRight">Second Half Grades</h2>
+    <div class="containerRight">
+    <div class="flex-boxRight">
+        <div class="cardRight">
+            <div class="inputRight">
+                <input type="number" id="aRight" placeholder="Classwork Grade">
+                <input type="number" id="bRight" placeholder="2nd Classwork Grade">
+                <input type="number" id="cRight" placeholder="Participation Grade">
+                <input type="number" id="dRight" placeholder="Formative Assessment">
+                <input type="number" id="eRight" placeholder="Summative Assessment">
+
+                <button onclick="calculateRight(); averageRight()">Calculate</button>
+                <p id="demoRight"></p>
+                <p id="demoAverageRight"></p>
+    </div>
+    </div>
+    </div>
+    </div>
+    
+    </div>
+
+    <div class="containerTotal">
+        <div class="flex-boxTotal">
+            <div class="cardTotal">
+                <button onclick="totalCalculate()">Final Amount</button>
+                <p id="total"></p>
+                <p id="totalAverage"></p>
+            </div>
+        </div>
+    </div>
+
+    <!-- second half of grades -->
+
+    <!-- <div class="containerRight">
+        <h2 id="descriptionRight">Enter Your Second Half Grades Below</h2>
+        <div class="flex-boxRight">
+            <div class="cardRight">
+                <div class="inputRight">
+                    <input type="number" id="aRight" placeholder="Classwork Grade">
+                    <input type="number" id="bRight" placeholder="2nd Classwork Grade">
+                    <input type="number" id="cRight" placeholder="Participation Grade">
+                    <input type="number" id="dRight" placeholder="Formative Assessment">
+                    <input type="number" id="eRight" placeholder="Summative Assessment">
+    
+                    <button onclick="calculate(); average()">Calculate</button>
+                    <p id="demo"></p>
+                    <p id="demoAverage"></p>
+        </div>
+        </div>
+        </div>
+        </div> -->
+
+    <script>
+        function calculate(){
+            let a = document.getElementById("a").value;
+            let b = document.getElementById("b").value;
+            let c = document.getElementById("c").value;
+            let d = document.getElementById("d").value;
+            let e = document.getElementById("e").value;
+
+            const total = (parseFloat(a) + parseFloat(b) + parseFloat(c) + parseFloat(d) + parseFloat(e)) / 5;
+            if (total > 0) {
+            document.getElementById("demo").innerHTML = "your total is " + total;
+        } else {
+            document.getElementById("demo").innerHTML = "Enter more grades"
+        }
+        };
+
+        function average(){
+            let a = document.getElementById("a").value;
+            let b = document.getElementById("b").value;
+            let c = document.getElementById("c").value;
+            let d = document.getElementById("d").value;
+            let e = document.getElementById("e").value;
+
+            const total = (parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d) + parseInt(e)) / 5;
+            if(total > 70 && total < 100) {
+                document.getElementById("demoAverage").innerHTML = "They are moving and grooving";
+            } 
+            if(total < 70 && total > 50) {
+                document.getElementById("demoAverage").innerHTML = "Pick it up, pick it up!"
+            }
+            if(total < 50) {
+                document.getElementById("demoAverage").innerHTML = "They can/should be doing way more than this!"
+            }
+        }
+
+        function calculateRight(){
+            let a = document.getElementById("aRight").value;
+            let b = document.getElementById("bRight").value;
+            let c = document.getElementById("cRight").value;
+            let d = document.getElementById("dRight").value;
+            let e = document.getElementById("eRight").value;
+
+            const totalRight = (parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d) + parseInt(e)) / 5;
+            if (totalRight > 0) {
+            document.getElementById("demoRight").innerHTML = "your total is " + totalRight;
+        } else {
+            document.getElementById("demoRight").innerHTML = "Enter more grades"
+        }
+        };
+
+        function averageRight(){
+            let a = document.getElementById("aRight").value;
+            let b = document.getElementById("bRight").value;
+            let c = document.getElementById("cRight").value;
+            let d = document.getElementById("dRight").value;
+            let e = document.getElementById("eRight").value;
+
+            const totalRight = (parseInt(a) + parseInt(b) + parseInt(c) + parseInt(d) + parseInt(e)) / 5;
+            if(totalRight > 70 && totalRight < 100) {
+                document.getElementById("demoAverageRight").innerHTML = "They are moving and grooving";
+            } 
+            if(totalRight < 70 && totalRight > 50) {
+                document.getElementById("demoAverageRight").innerHTML = "Pick it up, pick it up!"
+            }
+            if(totalRight < 50) {
+                document.getElementById("demoAverageRight").innerHTML = "They can/should be doing way more than this!"
+            } 
+        };
+
+        function totalCalculate(){
+            let a = document.getElementById("a").value;
+            let b = document.getElementById("b").value;
+            let c = document.getElementById("c").value;
+            let d = document.getElementById("d").value;
+            let e = document.getElementById("e").value;
+
+            let aRight = document.getElementById("aRight").value;
+            let bRight = document.getElementById("bRight").value;
+            let cRight = document.getElementById("cRight").value;
+            let dRight = document.getElementById("dRight").value;
+            let eRight = document.getElementById("eRight").value;
+
+            const totalRight = (parseInt(aRight) + parseInt(bRight) + parseInt(cRight) + parseInt(dRight) + parseInt(eRight)) / 5;
+
+            const total = (parseFloat(a) + parseFloat(b) + parseFloat(c) + parseFloat(d) + parseFloat(e)) / 5;
+
+            const overallTotal = (total + totalRight) / 2;
+
+            document.getElementById("total").innerHTML = overallTotal;
+            if (overallTotal > 0) {
+            document.getElementById("total").innerHTML = "your total is " + overallTotal;
+        } else {
+            document.getElementById("total").innerHTML = "Enter Grades";
+        }
+
+        if(overallTotal > 70 && overallTotal < 100) {
+                document.getElementById("totalAverage").innerHTML = "Great work to the student and their teacher!";
+            } 
+            if(overallTotal < 70 && overallTotal > 50) {
+                document.getElementById("totalAverage").innerHTML = "Good way to end the year, here's to a better next year!"
+            }
+            if(overallTotal < 50) {
+                document.getElementById("totalAverage").innerHTML = "We know they can/should have done better, but next year is a new!"
+            }
+        }
+
+
+    </script>
+</body>
+</html>
